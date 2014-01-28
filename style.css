@@ -1,0 +1,23 @@
+svg {
+	margin-right: 50px;
+}
+
+.axis line {
+	fill: none;
+	stroke: black;
+	shape-rendering: crispEdges;
+}
+
+.axis path {
+	display: none;
+}
+
+.axis text {
+	font-family: sans-serif;
+	font-size: 12px;
+}
+
+.label text {
+	font-family: sans-serif;
+	font-size: 12px;
+}
