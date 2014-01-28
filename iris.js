@@ -1,11 +1,19 @@
-d3.csv("http://localhost:8000/iris.csv", function (err, data) {
+d3.csv("http://localhost:8000/iris/iris.csv", function (err, data) {
 	if (!err)
 		handleData(data);
 });
 
+var 	setosaColor = 'rgba(255, 0, 0, 0.7)',
+	versicolorColor = 'rgba(204, 102, 0, 0.7)',
+	virginicaColor = 'rgba(0, 200, 0, 0.7)';
+
+$('#setosa').css('background-color', setosaColor);
+$('#versicolor').css('background-color', versicolorColor);
+$('#virginica').css('background-color', virginicaColor);
+
 function handleData(data) {
-	var 	w = 250,
-		h = 250,
+	var 	w = 400,
+		h = 400,
 		padding = {
 			top: 20,
 			right: 40,
@@ -47,12 +55,12 @@ function handleData(data) {
 			.filter(function (d) { return d.species === species; })
 			.attr('cx', function (d) { return xScale(d[xParam]); })
 			.attr('cy', function (d) { return yScale(d[yParam]);})
-			.attr('r', 2)
+			.attr('r', 3.5)
 			.style('fill', color);
 	};
 
-	var createScatterPlot = function (species) {
-		var svg = d3.select('body')
+	var createScatterPlot = function (title, attr1, attr2) {
+		var svg = d3.select('#plots')
 		.append('svg')
 		.attr('width', w)
 		.attr('height', h);
@@ -86,11 +94,19 @@ function handleData(data) {
 			.attr('transform', 'rotate(-90)')
 			.text("Width (cm)");
 
-		drawSpecies(svg, species, "sepalLength", "sepalWidth", 'rgba(255, 0, 0, 0.7)');
-		drawSpecies(svg, species, "petalLength", "petalWidth", 'rgba(204, 102, 0, 0.7)');
+		svg.append('g')
+			.append('text')
+			.attr('class', 'title')
+			.attr('text-anchor', 'middle')
+			.attr('x', w / 2)
+			.attr('y', 15)
+			.text(title);
+
+		drawSpecies(svg, "setosa", attr1, attr2, setosaColor);
+		drawSpecies(svg, "versicolor", attr1, attr2, versicolorColor);
+		drawSpecies(svg, "virginica", attr1, attr2, virginicaColor);
 	};
 
-	createScatterPlot("setosa");
-	createScatterPlot("versicolor");
-	createScatterPlot("virginica");
+	createScatterPlot("Sepal", "sepalLength", "sepalWidth");
+	createScatterPlot("Petal", "petalLength", "petalWidth");
 }
