@@ -1,4 +1,4 @@
-d3.csv("http://localhost:8000/iris/iris.csv", function (err, data) {
+d3.csv("iris.csv", function (err, data) {
 	if (!err)
 		handleData(data);
 });
